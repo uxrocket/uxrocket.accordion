@@ -1,0 +1,25 @@
+{
+  "name": "uxrocket.accordion",
+  "version": "0.2.3",
+  "description": "jQuery based Accordion plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uxrocket/uxrocket.accordion.git"
+  },
+  "dependencies": {
+	"jquery": "latest"
+  },
+  "keywords": [
+    "jQuery",
+    "javascript",
+    "tooltip",
+    "popover",
+	"uxrocket"
+  ],
+  "author": "Bilal Cinarli <bcinarli@gmail.com> (http://bcinarli.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uxrocket/uxrocket.accordion/issues"
+  },
+  "homepage": "https://github.com/uxrocket/uxrocket.accordion"
+}

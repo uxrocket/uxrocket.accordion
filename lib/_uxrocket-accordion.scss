@@ -1,0 +1,54 @@
+/* @author Bilal Cinarli */
+$accordion-version: 0.3;
+
+/** -------------------------------------------
+    Accordion
+    ------------------------------------------- **/
+.collapsible {
+	margin-bottom: 1px;
+
+	&.current {
+		.collapsible-header {
+			&:after {
+				@extend %down-icon !optional;
+			}
+		}
+
+		> .collapsible-content {
+            overflow: visible;
+			height: auto;
+			padding: 15px 0;
+		}
+	}
+
+	.collapsible-header {
+		position: relative;
+		cursor: pointer;
+		display: block;
+		margin: 0;
+
+		&:before {
+			margin-right: 10px;
+		}
+
+		&:after {
+			@extend %font-icon !optional;
+            @extend %right-icon !optional;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+			margin-top: -10px;
+		}
+
+		/*&:focus ~ .collapsible-content {
+			height: auto;
+			padding: 15px 0;
+		}*/
+	}
+
+	.collapsible-content {
+		@include app-transition();
+		height: 0;
+        overflow: hidden;
+	}
+}
