@@ -1,0 +1,4 @@
+uxrocket.accordion
+==================
+
+Accordion Plugin
