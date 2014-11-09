@@ -16,7 +16,7 @@ UX Rocket Accordion
 ```
 
 ### Notlar
-Aynı ebeveyn içindeki akordiyon elemanlar birbirleri ile etkileşimli olarak çalışırlar. Bir akordiyonun açık gelmesi için `current {.classname}` classı eklenmesi yeterlidir.
+Aynı ebeveyn içindeki akordiyon elemanlar birbirleri ile etkileşimli olarak çalışırlar. Bir akordiyonun açık gelmesi için `current` classı eklenmesi yeterlidir.
 
 ### Tanımlar
 Property			 | Default			    | Açıklama
