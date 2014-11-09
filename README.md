@@ -27,6 +27,8 @@ current              | current              | Aktif olan akordiyon elemanı içi
 closeSiblings        | true                 | Akordiyon açıldığında, aynı ebeveyn içindeki diğer akordiyonların kapanması ya da açık kalmasını belirler. `true` değerinde, diğer akordiyonlar kapanır.
 
 ### Public Metodlar
+Method						     | Açıklama
+-------------------------------- | -------------------------------------------------------
 $(selector).collapsible(options) | Bu method plugini manuel olarak bir elemana bağlamanızı sağlar.
 $.uxcollapsible                  | Bu method pluginin detayını görmenizi sağlar.
 $.uxcollapsible.version          | Sayfaya eklenmiş pluginin versiyon numarasını gösterir.
