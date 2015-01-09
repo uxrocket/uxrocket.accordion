@@ -1,9 +1,9 @@
 {
   "name": "uxrocket.accordion",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "https://github.com/uxrocket/uxrocket.accordion",
   "authors": [
-    "Bilal Çınarlı <bcinarli@gmail.com>"
+    "Bilal Çınarlı <bcinarli@gmail.com>"
   ],
   "description": "jQuery based accordion plugin",
   "main": "lib/uxrocket.accordion.js",
