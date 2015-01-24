@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+	<head>
+		<title>UX Rocket Accordion Sample</title>
+		<meta charset="utf-8" />
+		
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="../lib/uxrocket.accordion.js"></script>
+		<script>
+			$(function(){
+				$(".collapsible").collapsible({
+					closeSiblings: true
+				});
+			});
+		</script>
+				
+		<style>
+			body { margin: 0; padding: 0; font: 16px/1.4 "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+			.content { padding: 5em; }
+			
+			/** Collapsible styles **/
+			.collapsible {
+				position: relative;
+				margin-bottom: 1px;
+			}
+			
+			.collapsible.current .collapsible-header:after {
+				border-color: transparent;
+				border-top-color: #222;
+			}
+			
+			.collapsible.current .collapsible-content {
+				overflow: visible;
+				height: auto;
+				padding: 15px 0;
+			}
+			
+			.collapsible-header {
+				position: relative;
+				display: block;
+				margin: 0;
+				cursor: pointer;
+			}
+			
+			.collapsible-header:after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				right: 0;
+				width: 0;
+				height: 0;
+				margin-top: -8px;
+				border: solid transparent;
+				border-width: 8px;
+				border-left-color: #222;
+			}
+			
+			.collapsible-content {
+				overflow: hidden;
+				height: 0;
+				transition: all .3s;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="content">
+			<div class="example">
+			    <div class="collapsible current">
+			        <h3 class="collapsible-header">The Rebel Force</h3>
+			        <div class="collapsible-content">
+			            <p>Look, I ain't in this for your revolution, and I'm not in it for you, Princess. I expect to be well paid. I'm in it for the money. Alderaan? I'm not going to Alderaan. I've got to go home. It's late, I'm in for it as it is. Ye-ha! Look, I ain't in this for your revolution, and I'm not in it for you, Princess. I expect to be well paid. I'm in it for the money. What good is a reward if you ain't around to use it? Besides, attacking that battle station ain't my idea of courage. It's more like…suicide. The more you tighten your grip, Tarkin, the more star systems will slip through your fingers.</p>
+			        </div>
+			    </div>
+			    <div class="collapsible">
+			        <h3 class="collapsible-header">The Battle for Endor</h3>
+			        <div class="collapsible-content">
+			            <form>
+			                <div class="form-elements">
+			                    <p>Don't underestimate the Force. Look, I ain't in this for your revolution, and I'm not in it for you, Princess. I expect to be well paid. I'm in it for the money. What good is a reward if you ain't around to use it? Besides, attacking that battle station ain't my idea of courage. It's more like…suicide.</p>
+			                    <ul>
+			                        <li>Don't act so surprised, Your Highness. You weren't on any mercy mission this time. Several transmissions were beamed to this ship by Rebel spies. I want to know what happened to the plans they sent you.</li>
+			                        <li>I call it luck.</li>
+			                        <li>Look, I ain't in this for your revolution, and I'm not in it for you, Princess. I expect to be well paid. I'm in it for the money.</li>
+			                        <li>I need your help, Luke. She needs your help. I'm getting too old for this sort of thing.</li>
+			                        <li>Partially, but it also obeys your commands.</li>
+			                    </ul>
+			                </div>
+			            </form>
+			        </div>
+			    </div>
+			    <div class="collapsible">
+			        <h3 class="collapsible-header">The Sith Lords</h3>
+			        <div class="collapsible-content">
+			            <p>Leave that to me. Send a distress signal, and inform the Senate that all on board were killed. I'm surprised you had the courage to take the responsibility yourself. I'm trying not to, kid.</p>
+			            <p>All right. Well, take care of yourself, Han. I guess that's what you're best at, ain't it? Look, I ain't in this for your revolution, and I'm not in it for you, Princess. I expect to be well paid. I'm in it for the money. I need your help, Luke. She needs your help. I'm getting too old for this sort of thing. She must have hidden the plans in the escape pod. Send a detachment down to retrieve them, and see to it personally, Commander. There'll be no one to stop us this time!</p>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</body>
+</html>
