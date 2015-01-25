@@ -24,9 +24,17 @@
 				margin-bottom: 1px;
 			}
 			
-			.collapsible.current .collapsible-header:after {
+			.collapsible.current .collapsible-header:before {
+				right: 4px;
 				border-color: transparent;
 				border-top-color: #222;
+			}
+			
+			.collapsible.current .collapsible-header:after {
+				right: 7px;
+				margin-top: -8px;
+				border-color: transparent;
+				border-top-color: #fff;
 			}
 			
 			.collapsible.current .collapsible-content {
@@ -42,17 +50,29 @@
 				cursor: pointer;
 			}
 			
+			.collapsible-header:before,
 			.collapsible-header:after {
-				content: "";
 				position: absolute;
 				top: 50%;
 				right: 0;
 				width: 0;
 				height: 0;
-				margin-top: -8px;
 				border: solid transparent;
+				content: "";
+			}
+			
+			.collapsible-header:before {
+				right: 0;
+				margin-top: -8px;
 				border-width: 8px;
 				border-left-color: #222;
+			}
+			
+			.collapsible-header:after {
+				right: 6px;
+				margin-top: -5px;
+				border-width: 5px;
+				border-left-color: #fff;
 			}
 			
 			.collapsible-content {
