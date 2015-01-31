@@ -25,6 +25,14 @@ header               | .collapsible-header  | Akordiyonun açılma/kapanma aksiy
 content              | .collapsible-content | Akordiyonun içeriği. Metin, tablo, form, resim içerik kısıtlaması yoktur.
 current              | current              | Aktif olan akordiyon elemanı için tanımlanan CSS classı.
 closeSiblings        | true                 | Akordiyon açıldığında, aynı ebeveyn içindeki diğer akordiyonların kapanması ya da açık kalmasını belirler. `true` değerinde, diğer akordiyonlar kapanır.
+animateWith			 | css					| __css__ ya da __js__ parametrelerini alır. Akordiyonlar açılıp/kapanırken animasyonun CSS ile mi yoksa JS ile mi olacağını belirler. JS durumunda slideUp/Down şeklinde çalışır. CSS durumunda ise CSS ile tanımlanmış şekilde çalışır.
+duration			 | 200					| JS animate kullanırken, animasyon süresini belirler.
+
+Callback			 | &nbsp;
+-------------------- | -----
+onReady              | Akordiyon plugini elemanlara bağlandığında çalışacak fonksiyonu çağırır.
+onOpen       	     | Akordiyon elemanı açıldığında çalışacak fonksiyonu çağırır.
+onClose		         | Akordiyon elemanı kapandığından çalışacak fonksiyonu çağırır.
 
 ### Public Metodlar
 Method						     | Açıklama
