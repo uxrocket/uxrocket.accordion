@@ -6,13 +6,13 @@ UX Rocket Accordion
 UX Rocket Accordion'u `lib` klasöründeki dosyaları projenizin içerisine kopyalayarak kullanmaya başlayabilirsiniz. Ya da, [npm](https://www.npmjs.org/) veya [bower](http://bower.io) paket olarak kullanabilirsiniz. Bunun için, aşağıdaki komutları çağırmanız yeterlidir.
 
 __npm__
-```
+```Shell
 npm install uxrocket.accordion
 ```
 
 ya da __bower__
 
-```
+```Shell
 bower install uxrocket.accordion
 ```
 
@@ -25,7 +25,7 @@ Dosyaları kopyaladıktan sonra, __Sass__ dosyanız içinde
 // Sonra kendi stilleriniz
 ```
 
-__HTML__nizin içinde jQuery'den sonra `uxrocket.accordion.js` dosyasını ekleyiniz
+__HTML__ nizin içinde jQuery'den sonra `uxrocket.accordion.js` dosyasını ekleyiniz
 ```HTML
 <script src="<path-to-jquery>/jquery.js"></script>
 <script src="<path-to-accordion>/uxrocket.accordion.js"></script>
