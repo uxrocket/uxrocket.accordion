@@ -1,8 +1,37 @@
 UX Rocket Accordion
 ==================
-
 İçerikler görütülenirken hareketin geçişi CSS3 transition ile tanımlanmıştır. Eski tarayıcılarda efektsiz olarak çalışmaktadır.
 
+## Kurulum
+UX Rocket Accordion'u `lib` klasöründeki dosyaları projenizin içerisine kopyalayarak kullanmaya başlayabilirsiniz. Ya da, [npm](https://www.npmjs.org/) veya [bower](http://bower.io) paket olarak kullanabilirsiniz. Bunun için, aşağıdaki komutları çağırmanız yeterlidir.
+
+__npm__
+```
+npm install uxrocket.accordion
+```
+
+ya da __bower__
+
+```
+bower install uxrocket.accordion
+```
+
+Dosyaları kopyaladıktan sonra, __Sass__ dosyanız içinde
+
+```SCSS
+// Plugin stilleri
+@import "<path-to-accordion>/lib/uxrocket-accordion";
+
+// Sonra kendi stilleriniz
+```
+
+__HTML__ dosyanıza de jQuery'den sonra `uxrocket.accordion.js` dosyasını ekleyiniz
+```
+<script src="<path-to-jquery>/jquery.js"></script>
+<script src="<path-to-accordion>/uxrocket.accordion.js"></script>
+```
+
+## Kullanım
 
 ```HTML
 <div class="collapsible">
@@ -13,6 +42,18 @@ UX Rocket Accordion
     <h3 class="collapsible-header"></h3>
     <div class="collapsible-content"></div>
 </div>
+```
+
+```JavaScript
+$(function(){
+    // standart 
+    $('.collapsible').accordion();
+    
+    // özelleştirilmiş
+    $('.collapsiple').accordion({
+        closeSiblings: false
+    });
+});
 ```
 
 ### Notlar
