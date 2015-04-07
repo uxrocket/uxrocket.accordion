@@ -26,7 +26,7 @@ Dosyaları kopyaladıktan sonra, __Sass__ dosyanız içinde
 ```
 
 __HTML__ dosyanıza de jQuery'den sonra `uxrocket.accordion.js` dosyasını ekleyiniz
-```
+```HTML
 <script src="<path-to-jquery>/jquery.js"></script>
 <script src="<path-to-accordion>/uxrocket.accordion.js"></script>
 ```
