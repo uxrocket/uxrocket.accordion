@@ -19,7 +19,9 @@ bower install uxrocket.accordion
 ### Geliştirme İçin
 Geliştirme sırasında sisteminize doğrudan ekleyerek kullanmak için, `lib` klasörü içindeki kaynak dosyalarını `Sass` ve `JS` dosyalarınızın içerisine __import__ gerekmektedir.
 
+
 ```SCSS
+// styles.scss
 // Plugin stilleri
 @import "<path-to-accordion>/lib/uxrocket-accordion";
 
@@ -27,6 +29,7 @@ Geliştirme sırasında sisteminize doğrudan ekleyerek kullanmak için, `lib` k
 ```
 
 ```JS
+// app.js
 // Grunt ya da Gulp kullanıyorsanız JS içerisine import etmeniz gerekmiyor.
 // Codekit ve benzeri araçlar için. 
 // @codekit-append '<path-to-accordion>/lib/uxrocket.accordiong.js'
