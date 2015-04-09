@@ -16,7 +16,8 @@ ya da __bower__
 bower install uxrocket.accordion
 ```
 
-Dosyaları kopyaladıktan sonra, __Sass__ dosyanız içinde
+### Geliştirme İçin
+Geliştirme sırasında sisteminize doğrudan ekleyerek kullanmak için, `lib` klasörü içindeki kaynak dosyalarını `Sass` ve `JS` dosyalarınızın içerisine __import__ gerekmektedir.
 
 ```SCSS
 // Plugin stilleri
@@ -25,14 +26,26 @@ Dosyaları kopyaladıktan sonra, __Sass__ dosyanız içinde
 // Sonra kendi stilleriniz
 ```
 
-__HTML__ nizin içinde jQuery'den sonra `uxrocket.accordion.js` dosyasını ekleyiniz
-```HTML
-<script src="<path-to-jquery>/jquery.js"></script>
-<script src="<path-to-accordion>/uxrocket.accordion.js"></script>
+```JS
+// Codekit ve benzeri araçlar için
+@codekit-append '<path-to-accordion>/lib/uxrocket.accordiong.js'
 ```
+
+### Doğrudan Kullanım İçin
+__HTML__ nizin içinde jQuery'den sonra `uxrocket.accordion.js` dosyasını ekleyiniz ve `head` içine 
+```HTML
+<head>
+    ...
+    <link rel="stylesheet" href="<path-to-accordion>/dist/uxrocket-accordion.css" />
+    <script src="<path-to-jquery>/jquery.js"></script>
+    <script src="<path-to-accordion>/uxrocket.accordion.js"></script>
+    ...
+</head>
+```
+
 
 ## Kullanım
-
+Elemanların birbirleri ile etkileşimi ve açılma/kapanma işlemleri için minimum HTML yapısı aşağıdaki gibidir.
 ```HTML
 <div class="collapsible">
     <h3 class="collapsible-header"></h3>
@@ -44,6 +57,7 @@ __HTML__ nizin içinde jQuery'den sonra `uxrocket.accordion.js` dosyasını ekle
 </div>
 ```
 
+Yukarıdaki gibi HTML yapısını oluşturduktan sonra JavaScript içerisinde plugini aşağıdaki gibi çağırabilirsiniz.
 ```JavaScript
 $(function(){
     // standart 

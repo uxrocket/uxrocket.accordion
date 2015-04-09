@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-		<script src="../lib/uxrocket.accordion.js"></script>
+		<script src="../dist/uxrocket.accordion.min.js"></script>
 		<script>
 			$(function(){
 				$(".collapsible").collapsible({
@@ -17,78 +17,9 @@
 		<style>
 			body { margin: 0; padding: 0; font: 16px/1.4 "Gill Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 			.content { padding: 5em; }
-			
-			/** Collapsible styles **/
-			.collapsible {
-				position: relative;
-				margin-bottom: 1px;
-			}
-			
-			.collapsible.current .collapsible-header:before {
-				right: 4px;
-				border-color: transparent;
-				border-top-color: #222;
-			}
-			
-			.collapsible.current .collapsible-header:after {
-				right: 7px;
-				margin-top: -8px;
-				border-color: transparent;
-				border-top-color: #fff;
-			}
-			
-			.collapsible.current.uxitd-collapsible-animateCSS .collapsible-content {
-				overflow: visible;
-				height: auto;
-				padding: 15px 0;
-			}
-			
-			.collapsible.current.uxitd-collapsible-animateJS .collapsible-content {
-				display: block;
-			}
-			
-			.collapsible-header {
-				position: relative;
-				display: block;
-				margin: 0;
-				cursor: pointer;
-			}
-			
-			.collapsible-header:before,
-			.collapsible-header:after {
-				position: absolute;
-				top: 50%;
-				right: 0;
-				width: 0;
-				height: 0;
-				border: solid transparent;
-				content: "";
-			}
-			
-			.collapsible-header:before {
-				right: 0;
-				margin-top: -8px;
-				border-width: 8px;
-				border-left-color: #222;
-			}
-			
-			.collapsible-header:after {
-				right: 6px;
-				margin-top: -5px;
-				border-width: 5px;
-				border-left-color: #fff;
-			}
-			
-			.uxitd-collapsible-animateCSS .collapsible-content {
-				overflow: hidden;
-				height: 0;
-				transition: all .3s;
-			}
-			
-			.uxitd-collapsible-animateJS .collapsible-content {
-				display: none;
-			}
 		</style>
+
+        <link rel="stylesheet" href="../dist/uxrocket-accordion.css" />
 	</head>
 	
 	<body>
