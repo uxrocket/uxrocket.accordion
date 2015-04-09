@@ -27,8 +27,9 @@ Geliştirme sırasında sisteminize doğrudan ekleyerek kullanmak için, `lib` k
 ```
 
 ```JS
-// Codekit ve benzeri araçlar için
-@codekit-append '<path-to-accordion>/lib/uxrocket.accordiong.js'
+// Grunt ya da Gulp kullanıyorsanız JS içerisine import etmeniz gerekmiyor.
+// Codekit ve benzeri araçlar için. 
+// @codekit-append '<path-to-accordion>/lib/uxrocket.accordiong.js'
 ```
 
 ### Doğrudan Kullanım İçin
