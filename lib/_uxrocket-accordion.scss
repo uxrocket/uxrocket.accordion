@@ -37,7 +37,7 @@ $accordion-version: 0.5.0;
 			border-left-color: #fff; // assumes background is white
 		}
 		
-		.current & {
+		.collapsible.current > & {
 			&:before,
 			&:after {
 				border-color: transparent;
@@ -57,23 +57,23 @@ $accordion-version: 0.5.0;
 	}
 	
 	&-content {
-		.uxitd-collapsible-animateCSS & {
+		.uxitd-collapsible-animateCSS > & {
 			height: 0;
 	        overflow: hidden;
 			transition: all .3s;
 		}		
 		
-		.current.uxitd-collapsible-animateCSS & {
+		.current.uxitd-collapsible-animateCSS > & {
             overflow: visible;
 			height: auto;
 			padding: 15px 0;
 		}
 		
-		.uxitd-collapsible-animateJS & {
+		.uxitd-collapsible-animateJS > & {
 			display: none;
 		}
 		
-		.current.uxitd-collapsible-animateJS & {
+		.current.uxitd-collapsible-animateJS > & {
 			display: block;
 		}
 	}
