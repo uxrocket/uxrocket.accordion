@@ -4,16 +4,14 @@ $accordion-version: 0.5.3;
 /** -------------------------------------------
     Accordion
     ------------------------------------------- **/
-.collapsible {
-	margin-bottom: 1px;
-	
+.uxr-collapsible {
 	&-header {
 		position: relative;
 		display: block; // fix click area if inline element used for header
 		margin: 0;
 		cursor: pointer; // fix cursor if non-anchor element used for header
 		
-		&:before,
+		/*&:before,
 		&:after {
 			position: absolute;
 			top: 50%;
@@ -53,27 +51,27 @@ $accordion-version: 0.5.3;
 				margin-top: -8px;
 				border-top-color: #fff;
 			}
-		}
+		}*/
 	}
 	
 	&-content {
-		.uxitd-collapsible-animateCSS > & {
+		.uxr-collapsible-animateCSS > & {
 			height: 0;
 	        overflow: hidden;
 			transition: all .3s;
 		}		
 		
-		.current.uxitd-collapsible-animateCSS > & {
+		.uxr-collapsible-current.uxr-collapsible-animateCSS > & {
             overflow: visible;
 			height: auto;
 			padding: 15px 0;
 		}
 		
-		.uxitd-collapsible-animateJS > & {
+		.uxr-collapsible-animateJS > & {
 			display: none;
 		}
-		
-		.current.uxitd-collapsible-animateJS > & {
+
+		.uxr-collapsible-current.uxr-collapsible-animateJS > & {
 			display: block;
 		}
 	}
