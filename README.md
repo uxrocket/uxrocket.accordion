@@ -75,7 +75,25 @@ $(function(){
 ```
 
 ### Notlar
+__Bir Elemanı Başlangıçta Açık Getirme__
 Aynı ebeveyn içindeki akordiyon elemanlar birbirleri ile etkileşimli olarak çalışırlar. Bir akordiyonun açık gelmesi için `uxr-collapsible-current` classı eklenmesi yeterlidir.
+
+__İç içe Akordiyon__
+Akordiyon elemanları çalışırken her zaman `>` şeklinde seçilen ilk seviye _header_ ve _content_ olarak belirlenmiş elemanları kontrol etmektedir. Dolayısı ile bir _content_ içine tanımlanacak yukarıdaki [örnekte](#doğrudan-kullanım-İçin) belirtilen yapıda istenildiği kadar iç içe akordiyon oluşturulabilir.
+
+__Yana Açılır Akordiyon__
+Bazı durumlarda akordiyon elemanların alta doğru değil de yana doğru açılması istenebilir. _JS Animasyon_ kullanıldığı durumlarda bunu `slideUp/Down` metodları kullanıldığı için yana doğru açmak kolayca mümkün olmayacak. Dilenirse, yana açmak istenen elemanların _runtime_ sırasında `animate` metodu _overwrite_ edilebilir. _CSS Animasyon_ kullanıldığı durumlarda ise, kolayca aşağıdaki yöntem izlenebilir
+
+```scss
+.uxr-collapsible-animateCSS > .uxr-collapsible-content {
+  width: 0;
+}
+
+.uxr-collapsible-current.uxr-collapsible-animateCSS > .uxr-collapsible-content {
+  width: auto;
+}
+```
+
 
 ### Tanımlar
 Property			 | Default			    | Açıklama
