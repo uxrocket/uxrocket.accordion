@@ -1,9 +1,9 @@
 UX Rocket Accordion
 ==================
-İçerikler görütülenirken hareketin geçişi CSS3 transition ile tanımlanmıştır. Eski tarayıcılarda efektsiz olarak çalışmaktadır.
+İçeriklerin açılır/kapanır şekilde gözükmesini sağlar. Açılıp/kapanma için CSS ya da JS animasyonları seçilebilir. _Overwrite_ ihtiyacının azaltılması için, plugin stilleri içinde sadece açma/kapama işlemleri için ihtiyaç duyulan tanımlar bulunmaktadır.
 
 ## Kurulum
-UX Rocket Accordion'u `lib` klasöründeki dosyaları projenizin içerisine kopyalayarak kullanmaya başlayabilirsiniz. Ya da, [npm](https://www.npmjs.org/) veya [bower](http://bower.io) paket olarak kullanabilirsiniz. Bunun için, aşağıdaki komutları çağırmanız yeterlidir.
+UX Rocket Accordion'u ihtiyacınıza göre `dist` klasöründeki dosyaları projenizin içerisine kopyalayarak ya da `lib` klasöründeki kaynak kodlarını projenize ekleyerek kullanmaya başlayabilirsiniz. Ya da, [npm](https://www.npmjs.org/) veya [bower](http://bower.io) paket olarak kullanabilirsiniz. Bunun için, aşağıdaki komutları çağırmanız yeterlidir.
 
 __npm__
 ```Shell
@@ -23,7 +23,7 @@ Geliştirme sırasında sisteminize doğrudan ekleyerek kullanmak için, `lib` k
 ```SCSS
 // styles.scss
 // Plugin stilleri
-@import "<path-to-accordion>/lib/uxrocket-accordion";
+@import "<path-to-accordion>/lib/_uxrocket-accordion";
 
 // Sonra kendi stilleriniz
 ```
@@ -32,17 +32,17 @@ Geliştirme sırasında sisteminize doğrudan ekleyerek kullanmak için, `lib` k
 // app.js
 // Grunt ya da Gulp kullanıyorsanız JS içerisine import etmeniz gerekmiyor.
 // Codekit ve benzeri araçlar için. 
-// @codekit-append '<path-to-accordion>/lib/uxrocket.accordiong.js'
+// @codekit-append '<path-to-accordion>/lib/uxrocket.accordion.js'
 ```
 
 ### Doğrudan Kullanım İçin
-__HTML__ nizin içinde jQuery'den sonra `uxrocket.accordion.js` dosyasını ekleyiniz ve `head` içine 
+__HTML__ nizin içinde jQuery'den sonra `uxrocket.accordion.min.js` dosyasını ekleyiniz ve `head` içine 
 ```HTML
 <head>
     ...
-    <link rel="stylesheet" href="<path-to-accordion>/dist/uxrocket-accordion.css" />
+    <link rel="stylesheet" href="<path-to-accordion>/dist/uxrocket.accordion.min.css" />
     <script src="<path-to-jquery>/jquery.js"></script>
-    <script src="<path-to-accordion>/uxrocket.accordion.js"></script>
+    <script src="<path-to-accordion>/dist/uxrocket.accordion.min.js"></script>
     ...
 </head>
 ```
@@ -65,26 +65,25 @@ Yukarıdaki gibi HTML yapısını oluşturduktan sonra JavaScript içerisinde pl
 ```JavaScript
 $(function(){
     // standart 
-    $('.collapsible').accordion();
+    $('.collapsible').collapsible();
     
     // özelleştirilmiş
-    $('.collapsiple').accordion({
-        closeSiblings: false
+    $('.collapsiple').collapsible({
+        closeSiblings: true
     });
 });
 ```
 
 ### Notlar
-Aynı ebeveyn içindeki akordiyon elemanlar birbirleri ile etkileşimli olarak çalışırlar. Bir akordiyonun açık gelmesi için `current` classı eklenmesi yeterlidir.
+Aynı ebeveyn içindeki akordiyon elemanlar birbirleri ile etkileşimli olarak çalışırlar. Bir akordiyonun açık gelmesi için `uxr-collapsible-current` classı eklenmesi yeterlidir.
 
 ### Tanımlar
 Property			 | Default			    | Açıklama
 -------------------- | -------------------- | ------------------------------------------------------------------------
 header               | .collapsible-header  | Akordiyonun açılma/kapanma aksiyonlarını tetikleyen başlık satırı
 content              | .collapsible-content | Akordiyonun içeriği. Metin, tablo, form, resim içerik kısıtlaması yoktur.
-current              | current              | Aktif olan akordiyon elemanı için tanımlanan CSS classı.
-closeSiblings        | true                 | Akordiyon açıldığında, aynı ebeveyn içindeki diğer akordiyonların kapanması ya da açık kalmasını belirler. `true` değerinde, diğer akordiyonlar kapanır.
-animateWith			 | css					| __css__ ya da __js__ parametrelerini alır. Akordiyonlar açılıp/kapanırken animasyonun CSS ile mi yoksa JS ile mi olacağını belirler. JS durumunda slideUp/Down şeklinde çalışır. CSS durumunda ise CSS ile tanımlanmış şekilde çalışır.
+closeSiblings        | false                | Akordiyon açıldığında, aynı ebeveyn içindeki diğer akordiyonların kapanması ya da açık kalmasını belirler. `true` değerinde, diğer akordiyonlar kapanır.
+animateWith			 | css					| __css__ ya da __js__ parametrelerini alır. Akordiyonlar açılıp/kapanırken animasyonun CSS ile mi yoksa JS ile mi olacağını belirler. JS durumunda `slideUp`/`slideDown` şeklinde çalışır. CSS durumunda ise CSS ile tanımlanmış şekilde çalışır.
 duration			 | 200					| JS animate kullanırken, animasyon süresini belirler.
 
 Callback			 | &nbsp;
@@ -92,6 +91,11 @@ Callback			 | &nbsp;
 onReady              | Akordiyon plugini elemanlara bağlandığında çalışacak fonksiyonu çağırır.
 onOpen       	     | Akordiyon elemanı açıldığında çalışacak fonksiyonu çağırır.
 onClose		         | Akordiyon elemanı kapandığından çalışacak fonksiyonu çağırır.
+
+Event   			 | &nbsp;
+-------------------- | -----
+uxrexpanded             | Bir `uxr-collapsible-node` elemanı açıldığında, bu eleman üzerinde _trigger_ metodu ile çalışan _event_ tir. Plugin bind olurken yapılan `onOpen` callbacki de bu event ile çalışmaktadır.
+uxrcollapsed         | Bir `uxr-collapsible-node` elemanı kapandığında, bu eleman üzerinde _trigger_ metodu ile çalışan _event_ tir. Plugin bind olurken yapılan `onClose` callbacki de bu event ile çalışmaktadır.
 
 ### Public Metodlar
 Method						     | Açıklama
