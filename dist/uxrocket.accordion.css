@@ -7,47 +7,6 @@
   display: block;
   margin: 0;
   cursor: pointer;
-  /*&:before,
-		&:after {
-			position: absolute;
-			top: 50%;
-			width: 0;
-			height: 0;
-			border: solid transparent;
-			content: "";
-		}
-		
-		&:before {
-			right: 0;
-			margin-top: -8px;
-			border-width: 8px;
-			border-left-color: #222;
-		}
-		
-		&:after {
-			right: 6px;
-			margin-top: -5px;
-			border-width: 5px;
-			border-left-color: #fff; // assumes background is white
-		}
-		
-		.collapsible.current > & {
-			&:before,
-			&:after {
-				border-color: transparent;
-			}
-			
-			&:before {
-				right: 4px;
-				border-top-color: #222;
-			}
-			
-			&:after {
-				right: 7px;
-				margin-top: -8px;
-				border-top-color: #fff;
-			}
-		}*/
 }
 
 .uxr-collapsible-animateCSS > .uxr-collapsible-content {
