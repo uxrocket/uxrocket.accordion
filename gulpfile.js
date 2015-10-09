@@ -59,6 +59,7 @@ var tasks = {
                 browsers: ['last 3 versions']
             }))
             .pipe(rename(pkg.name + '.css'))
+            .pipe(header(banner, {pkg: pkg, date: new Date()}))
             .pipe(gulp.dest(paths.dist))
             .pipe(sass({
                 outputStyle: 'compressed'
