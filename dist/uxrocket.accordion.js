@@ -101,7 +101,7 @@
     Collapsible.prototype.isActive = function() {
         this.options.active = this.options.active || false;
 
-        if(this.$el.hasClass(utils.getClassname('currrent')) || this.$el.hasClass(this.options.current)) {
+        if(this.$el.hasClass(utils.getClassname('current')) || this.$el.hasClass(this.options.current)) {
             this.options.active = true;
         }
     };
@@ -120,6 +120,7 @@
 
         this.$el
             .on(events.collapsed, function() {
+                _this.closeNested();
                 utils.callback(_this.options.onClose);
             })
             .on(events.expanded, function() {
@@ -168,6 +169,10 @@
             collapsible.emitEvent();
             $this.removeClass(utils.getClassname('current') + ' ' + _this.options.current);
         });
+    };
+
+    Collapsible.prototype.closeNested = function() {
+        this.$el.find('.' + utils.getClassname('node')).removeClass(utils.getClassname('current'));
     };
 
     Collapsible.prototype.emitEvent = function() {
@@ -235,7 +240,7 @@
     };
 
     // Version
-    ux.version = '1.2.0';
+    ux.version = '1.2.1';
 
     // settings
     ux.settings = defaults;
