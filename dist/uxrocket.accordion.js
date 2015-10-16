@@ -142,9 +142,9 @@
             this.closeSiblings();
         }
 
-        this.emitEvent();
-
         this.$el.toggleClass(utils.getClassname('current') + ' ' + this.options.current);
+
+        this.emitEvent();
     };
 
     Collapsible.prototype.animate = function() {
@@ -177,10 +177,10 @@
 
     Collapsible.prototype.emitEvent = function() {
         if(this.$el.hasClass(utils.getClassname('current'))) {
-            this.$el.trigger('uxrcollapsed');
+            this.$el.trigger('uxrexpanded');
         }
         else {
-            this.$el.trigger('uxrexpanded');
+            this.$el.trigger('uxrcollapsed');
         }
     };
 
@@ -240,7 +240,7 @@
     };
 
     // Version
-    ux.version = '1.2.1';
+    ux.version = '1.2.2';
 
     // settings
     ux.settings = defaults;
