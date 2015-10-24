@@ -2,13 +2,13 @@
  *  jQuery based Accordion plugin 
  *  @author Bilal Cinarli <bcinarli@gmail.com> (http://bcinarli.com/) 
  *          Kürşad Yıldırmak <kursad@filyos.com> (https://github.com/ihaveaproblem)
- *  @version 1.2.2 
- *  @build Fri Oct 16 2015 21:08:08 GMT+0300 (EEST) 
+ *  @version 1.2.3 
+ *  @build Sat Oct 24 2015 10:18:54 GMT+0300 (EEST) 
  */
 /*! UX Rocket Accordion 
  *  jQuery based Accordion plugin 
  *  @author Bilal Cinarli <bcinarli@gmail.com> (http://bcinarli.com/) 
  *          Kürşad Yıldırmak <kursad@filyos.com> (https://github.com/ihaveaproblem)
- *  @version 1.2.2 
- *  @build Fri Oct 16 2015 21:08:08 GMT+0300 (EEST) 
+ *  @version 1.2.3 
+ *  @build Sat Oct 24 2015 10:18:54 GMT+0300 (EEST) 
  */.uxr-collapsible-header{position:relative;display:block;margin:0;cursor:pointer}.uxr-collapsible-animateCSS>.uxr-collapsible-content{height:0;overflow:hidden;transition:all 0.3s}.uxr-collapsible-current.uxr-collapsible-animateCSS>.uxr-collapsible-content{overflow:visible;height:auto;padding:15px 0}.uxr-collapsible-animateJS>.uxr-collapsible-content{display:none}.uxr-collapsible-current.uxr-collapsible-animateJS>.uxr-collapsible-content{display:block}

@@ -88,7 +88,7 @@
     Collapsible.prototype.handleClasses = function() {
         this.$el.addClass(utils.getClassname('node') + ' ' + utils.getClassname('ready') + ' ' + utils.getClassname('animate') + this.options.animateWith.toUpperCase());
 
-        if(this.options.active) {
+        if(this.options.active || this.$el.hasClass(this.options.current)) {
             this.$el.addClass(utils.getClassname('current') + ' ' + this.options.current);
         }
     };
@@ -240,7 +240,7 @@
     };
 
     // Version
-    ux.version = '1.2.2';
+    ux.version = '1.2.3';
 
     // settings
     ux.settings = defaults;
