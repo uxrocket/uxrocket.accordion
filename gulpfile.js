@@ -2,116 +2,117 @@
  * @author Bilal Cinarli
  */
 
-'use strict';
+"use strict";
 
-var gulp = require('gulp'),
-    pkg = require('./package.json'),
-
-// utils
-    header = require('gulp-header'),
-    notify = require('gulp-notify'),
-    rename = require('gulp-rename'),
-    sourcemaps = require('gulp-sourcemaps'),
-    uglify = require('gulp-uglify'),
-
-// sass
-    sass = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-
-// lint
-    jshint = require('gulp-jshint'),
-    csslint = require('gulp-csslint'),
-
-// testing
-    mochaPhantomJs = require('gulp-mocha-phantomjs');
-
-var paths = {
-    lib     : 'lib/',
-    dist    : 'dist/',
-    test    : 'test/',
-    examples: 'examples/'
-};
+var gulp     = require("gulp"),
+    pkg      = require('./package.json'),
+    uxrocket = require('./uxrocket.json'),
+    p        = require('gulp-load-plugins')(),
+    connect  = require('gulp-connect');
 
 var banner = [
-    '/*! UX Rocket Accordion \n' +
-    ' *  <%= pkg.description %> \n' +
-    ' *  @author <%= pkg.author %> \n' +
-    '<% pkg.contributors.forEach(function(contributor) { %>' +
-    ' *          <%= contributor.name %> <<%=contributor.email %>> (<%=contributor.url %>)\n' +
-    '<% }) %>' +
-    ' *  @version <%= pkg.version %> \n' +
-    ' *  @build <%= date %> \n' +
-    ' */\n'
+    "/*! UX Rocket <%= uxrocket.name %> \n" +
+    " *  <%= pkg.description %> \n" +
+    " *  @author <%= pkg.author %> \n" +
+    "<% pkg.contributors.forEach(function(contributor) { %>" +
+    " *          <%= contributor.name %> <<%=contributor.email %>> (<%=contributor.url %>)\n" +
+    "<% }) %>" +
+    " *  @version <%= uxrocket.version %> \n" +
+    " *  @build <%= date %> \n" +
+    " */\n"
 ].join('');
 
 var tasks = {
     mocha: function() {
-        return gulp.src(paths.test + 'index.html')
-            .pipe(mochaPhantomJs());
+        return gulp.src(uxrocket.paths.test + 'index.html')
+            .pipe(p.mochaPhantomjs());
     },
 
     sass: function() {
-        return gulp.src(paths.lib + '**/*.scss')
-            .pipe(sass({
-                outputStyle: 'expanded'
+        return gulp.src(uxrocket.paths.lib + "**/*.scss")
+            .pipe(p.sourcemaps.init())
+            .pipe(p.sass({
+                outputStyle: "expanded"
             }))
-            .pipe(autoprefixer({
+            .pipe(p.autoprefixer({
                 browsers: ['last 3 versions']
             }))
-            .pipe(rename(pkg.name + '.css'))
-            .pipe(header(banner, {pkg: pkg, date: new Date()}))
-            .pipe(gulp.dest(paths.dist))
-            .pipe(sass({
-                outputStyle: 'compressed'
-            })).on('error', notify.onError('Error: <%= error.message %>'))
-            .pipe(autoprefixer({
+            .pipe(p.rename(uxrocket.registry + '.css'))
+            .pipe(gulp.dest(uxrocket.paths.dist))
+            .pipe(p.sass({
+                outputStyle: "compressed"
+            })).on("error", p.notify.onError("Error: <%= error.message %>"))
+            .pipe(p.autoprefixer({
                 browsers: ['last 3 versions']
             }))
-            .pipe(rename(pkg.name + '.min.css'))
-            .pipe(header(banner, {pkg: pkg, date: new Date()}))
-            .pipe(notify('Sass styles completed'))
-            .pipe(gulp.dest(paths.dist));
+            .pipe(p.rename(uxrocket.registry + '.min.css'))
+            .pipe(p.header(banner, {pkg: pkg, uxrocket: uxrocket, date: new Date()}))
+            .pipe(p.sourcemaps.write('./'))
+            .pipe(p.notify('Sass styles completed'))
+            .pipe(gulp.dest(uxrocket.paths.dist));
     },
 
     csslint: function() {
-        return gulp.src(paths.dist + pkg.name + '.css')
-            .pipe(csslint())
-            .pipe(csslint.reporter());
+        return gulp.src(uxrocket.paths.dist + uxrocket.registry + '.css')
+            .pipe(p.csslint())
+            .pipe(p.csslint.reporter());
     },
 
     lint: function() {
-        return gulp.src(paths.lib + '**/*.js')
-            .pipe(jshint()).on('error', notify.onError('Error: <%= error.message %>'))
-            .pipe(jshint.reporter('default'))
-            .pipe(notify('JSHint completed'));
+        return gulp.src(uxrocket.paths.lib + "**/*.js")
+            .pipe(p.jshint()).on("error", p.notify.onError("Error: <%= error.message %>"))
+            .pipe(p.jshint.reporter("default"))
+            .pipe(p.notify('JSHint completed'));
     },
 
     scripts: function() {
-        return gulp.src(paths.lib + '**/' + pkg.name + '.js')
-            .pipe(rename(pkg.name + '.js'))
-            .pipe(gulp.dest(paths.dist))
-            .pipe(uglify()).on('error', notify.onError('Error: <%= error.message %>'))
-            .pipe(header(banner, {pkg: pkg, date: new Date()}))
-            .pipe(rename(pkg.name + '.min.js'))
-            .pipe(notify('Script file uglified'))
-            .pipe(gulp.dest(paths.dist));
+        return gulp.src(uxrocket.paths.lib + "**/*.js")
+            .pipe(p.rename(uxrocket.registry + '.js'))
+            .pipe(gulp.dest(uxrocket.paths.dist))
+            .pipe(p.uglify()).on("error", p.notify.onError("Error: <%= error.message %>"))
+            .pipe(p.header(banner, {pkg: pkg, uxrocket: uxrocket, date: new Date()}))
+            .pipe(p.rename(uxrocket.registry + '.min.js'))
+            .pipe(p.notify('Script file uglified'))
+            .pipe(gulp.dest(uxrocket.paths.dist));
+    },
+
+    connect: function() {
+        connect.server({
+            livereload: true,
+            port:       3030
+        });
+    },
+
+    reload: {
+        styles: function() {
+            return gulp.src(uxrocket.paths.dist + '**/*.css')
+                .pipe(p.notify({message: 'Styles Reloaded', onLast: true}))
+                .pipe(p.connect.reload());
+        },
+
+        scripts: function() {
+            return gulp.src(config.paths.scripts + '**/*.js')
+                .pipe(p.notify({message: 'Scripts Reloaded', onLast: true}))
+                .pipe(p.connect.reload());
+        }
     }
 };
 
+gulp.task('connect', tasks.connect);
 gulp.task('sass', tasks.sass);
-gulp.task('csslint', ['sass'], function() {
-    return tasks.csslint();
-});
+gulp.task('csslint', tasks.csslint);
 gulp.task('lint', tasks.lint);
-gulp.task('scripts', ['lint'], function() {
-    return tasks.scripts();
-});
+gulp.task('scripts', tasks.scripts);
 gulp.task('mocha', tasks.mocha);
 
 gulp.task('watch', ['csslint', 'sass', 'lint', 'scripts', 'mocha'], function() {
-    gulp.watch(paths.lib + '**/*.scss', ['sass']);
-    gulp.watch(paths.dist + '**/*.css', ['csslint']);
-    gulp.watch(paths.lib + '**/*.js', ['lint', 'scripts', 'mocha']);
+    gulp.watch(uxrocket.paths.lib + '**/*.scss', ['sass'], function() {
+        return tasks.reload.styles();
+    });
+    gulp.watch(uxrocket.paths.dist + '**/*.css', ['csslint']);
+    gulp.watch(uxrocket.paths.lib + '**/*.js', ['lint', 'scripts', 'mocha'], function() {
+        return tasks.reload.scripts();
+    });
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['connect', 'watch']);

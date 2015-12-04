@@ -19,77 +19,84 @@
 }(function($) {
     var ux,
         rocketName = 'uxrCollapsible',
+        i          = 1,
 
-        defaults = {
-            header       : '.collapsible-header',
-            content      : '.collapsible-content',
-            current      : '',
+        defaults   = {
+            header:        '.collapsible-header',
+            content:       '.collapsible-content',
+            current:       '',
             closeSiblings: false,
-            animateWith  : 'css', // css or js
-            duration     : 200,
+            animateWith:   'css', // css or js
+            duration:      200,
 
             onReady: false,
-            onOpen : false,
+            onOpen:  false,
             onClose: false
         },
-        events = {
-            click    : 'click.' + rocketName,
+        events     = {
+            click:     'click.' + rocketName,
+            ready:     'uxrready.' + rocketName,
             collapsed: 'uxrcollapsed.' + rocketName,
-            expanded : 'uxrexpanded.' + rocketName
+            expanded:  'uxrexpanded.' + rocketName
         },
-        ns = {
-            prefix : 'uxr-',
-            rocket : 'uxRocket',
-            data   : rocketName,
-            name   : 'collapsible',
+        ns         = {
+            prefix:  'uxr-',
+            rocket:  'uxRocket',
+            data:    rocketName,
+            name:    'collapsible',
             classes: {
-                node   : 'node',
-                header : 'header',
+                node:    'node',
+                header:  'header',
                 content: 'content',
-                ready  : 'ready',
+                ready:   'ready',
                 current: 'current',
                 animate: 'animate'
             }
-        };
+        },
+
+        utils      = new uxrPluginUtils({ns: ns});
 
     // Constructor
     var Collapsible = function(el, options, selector) {
-        this._name = rocketName;
+        this._instance = i;
+        this._name     = rocketName;
         this._defaults = defaults;
 
-        this.el = el;
-        this.$el = $(el);
-        this.options = $.extend(true, {}, defaults, options, this.$el.data());
+        this.el       = el;
+        this.$el      = $(el);
+        this.options  = $.extend(true, {}, defaults, options, this.$el.data());
         this.selector = selector;
         this.siblings = this.$el.siblings(this.selector);
+        this.isActive = this.options.active || false;
+
+        i++;
 
         this.init();
     };
 
     Collapsible.prototype.init = function() {
-        var uxrocket = this.$el.data(ns.rocket) || {};
+        if(this.el.id === '') {
+            this.el.id = ns.data + '-' + this._instance;
+        }
+
+        this.registry();
 
         this.getChildren();
-        this.isActive();
 
         // add ready class
-        this.handleClasses();
-        this.handleChildClasses();
+        this.decorateUI();
 
-        // register plugin data to rocket
-        uxrocket[ns.data] = {hasWrapper: false, ready: utils.getClassname('ready'), selector: this.selector, options: this.options};
-        this.$el.data(ns.rocket, uxrocket);
+        this.bindUI();
 
-        utils.callback(this.options.onReady);
-
-        this.bindUIActions();
+        this.emitEvent('ready');
     };
 
     Collapsible.prototype.handleClasses = function() {
         this.$el.addClass(utils.getClassname('node') + ' ' + utils.getClassname('ready') + ' ' + utils.getClassname('animate') + this.options.animateWith.toUpperCase());
 
-        if(this.options.active || this.$el.hasClass(this.options.current)) {
+        if(this.isActive || this.$el.hasClass(this.options.current)) {
             this.$el.addClass(utils.getClassname('current') + ' ' + this.options.current);
+            this.isActive = true;
         }
     };
 
@@ -98,20 +105,17 @@
         this.$content.addClass(utils.getClassname('content'));
     };
 
-    Collapsible.prototype.isActive = function() {
-        this.options.active = this.options.active || false;
-
-        if(this.$el.hasClass(utils.getClassname('current')) || this.$el.hasClass(this.options.current)) {
-            this.options.active = true;
-        }
-    };
-
     Collapsible.prototype.getChildren = function() {
-        this.$header = this.$el.find('> ' + this.options.header);
+        this.$header  = this.$el.find('> ' + this.options.header);
         this.$content = this.$el.find('> ' + this.options.content);
     };
 
-    Collapsible.prototype.bindUIActions = function() {
+    Collapsible.prototype.decorateUI = function() {
+        this.handleClasses();
+        this.handleChildClasses();
+    };
+
+    Collapsible.prototype.bindUI = function() {
         var _this = this;
 
         this.$header.on(events.click, function() {
@@ -119,6 +123,9 @@
         });
 
         this.$el
+            .on(events.ready, function() {
+                utils.callback(_this.options.onReady);
+            })
             .on(events.collapsed, function() {
                 _this.closeNested();
                 utils.callback(_this.options.onClose);
@@ -128,34 +135,25 @@
             });
     };
 
-    Collapsible.prototype.unbindUIActions = function() {
+    Collapsible.prototype.unbindUI = function() {
         this.$el.off('.' + rocketName);
         this.$header.off('.' + rocketName);
     };
 
     Collapsible.prototype.toggle = function() {
-        if(this.options.animateWith === 'js') {
-            this.animate();
+        if(this.isActive) {
+            this.close();
         }
-
-        if(this.options.closeSiblings) {
-            this.closeSiblings();
+        else {
+            this.open();
         }
-
-        this.$el.toggleClass(utils.getClassname('current') + ' ' + this.options.current);
-
-        this.emitEvent();
-    };
-
-    Collapsible.prototype.animate = function() {
-        this.$content.slideToggle(this.options.duration);
     };
 
     Collapsible.prototype.closeSiblings = function() {
         var _this = this;
 
         this.siblings.each(function() {
-            var $this = $(this),
+            var $this       = $(this),
                 collapsible = $this.data(rocketName);
 
             if(!$this.hasClass(utils.getClassname('current'))) {
@@ -166,7 +164,8 @@
                 collapsible.$content.slideUp();
             }
 
-            collapsible.emitEvent();
+            collapsible.isActive = false;
+            collapsible.emitEvent('collapsed');
             $this.removeClass(utils.getClassname('current') + ' ' + _this.options.current);
         });
     };
@@ -175,55 +174,48 @@
         this.$el.find('.' + utils.getClassname('node')).removeClass(utils.getClassname('current'));
     };
 
-    Collapsible.prototype.emitEvent = function() {
-        if(this.$el.hasClass(utils.getClassname('current'))) {
-            this.$el.trigger('uxrexpanded');
+    Collapsible.prototype.open = function(force) {
+        if(this.options.animateWith === 'js') {
+            this.$content.slideDown(this.options.duration);
         }
-        else {
-            this.$el.trigger('uxrcollapsed');
+
+        if(this.options.closeSiblings && !force) {
+            this.closeSiblings();
         }
+
+        this.$el.addClass(utils.getClassname('current') + ' ' + this.options.current);
+        this.isActive = true;
+
+        this.emitEvent('expanded');
     };
 
-    var utils = {
-        callback: function(fn) {
-            // if callback string is function call it directly
-            if(typeof fn === 'function') {
-                fn.apply(this);
-            }
-
-            // if callback defined via data-attribute, call it via new Function
-            else {
-                if(fn !== false) {
-                    var func = new Function('return ' + fn);
-                    func();
-                }
-            }
-        },
-
-        getStringVariable: function(str) {
-            var val;
-            // check if it is chained
-            if(str.indexOf('.') > -1) {
-                var chain = str.split('.'),
-                    chainVal = window[chain[0]];
-
-                for(var i = 1; i < chain.length; i++) {
-                    chainVal = chainVal[chain[i]];
-                }
-
-                val = chainVal;
-            }
-
-            else {
-                val = window[str];
-            }
-
-            return val;
-        },
-
-        getClassname: function(which) {
-            return ns.prefix + ns.name + '-' + ns.classes[which];
+    Collapsible.prototype.close = function() {
+        if(this.options.animateWith === 'js') {
+            this.$content.slideUp(this.options.duration);
         }
+
+        this.$el.removeClass(utils.getClassname('current') + ' ' + this.options.current);
+        this.isActive = false;
+
+        this.emitEvent('collapsed')
+    };
+
+    Collapsible.prototype.registry = function() {
+        var uxrocket = this.$el.data(ns.rocket) || {};
+
+        // register plugin data to rocket
+        uxrocket[ns.data] = {
+            hasWrapper: false,
+            ready:      utils.getClassname('ready'),
+            selector:   this.selector,
+            options:    this.options
+        };
+
+        this.$el.data(ns.rocket, uxrocket);
+    };
+
+    Collapsible.prototype.emitEvent = function(which) {
+        this.$el.trigger(events[which]);
     };
 
     ux = $.fn.collapsible = $.fn.uxrcollapsible = $.uxrcollapsible = function(options) {
@@ -239,8 +231,28 @@
         });
     };
 
+    ux.openAll = function(parent) {
+        var $parent = $(parent);
+
+        $parent.find('> .' + utils.getClassname('ready')).each(function() {
+            var collapsible = $(this).data(rocketName);
+
+            collapsible.open(true);
+        });
+    };
+
+    ux.closeAll = function(parent) {
+        var $parent = $(parent);
+
+        $parent.find('> .' + utils.getClassname('ready')).each(function() {
+            var collapsible = $(this).data(rocketName);
+
+            collapsible.close();
+        });
+    };
+
     // Version
-    ux.version = '1.2.3';
+    ux.version = '1.3.0';
 
     // settings
     ux.settings = defaults;
