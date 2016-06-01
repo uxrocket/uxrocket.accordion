@@ -109,6 +109,7 @@ Callback			 | &nbsp;
 onReady              | Akordiyon plugini elemanlara bağlandığında çalışacak fonksiyonu çağırır.
 onOpen       	     | Akordiyon elemanı açıldığında çalışacak fonksiyonu çağırır.
 onClose		         | Akordiyon elemanı kapandığından çalışacak fonksiyonu çağırır.
+waitOnOpen		     | Akordiyon elemanına tıklandığında init olur ve fonksiyonun true dönmesini bekler.
 
 Event   			 | &nbsp;
 -------------------- | -----
